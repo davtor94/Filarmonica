@@ -23,8 +23,9 @@ import java.util.StringTokenizer;
  */
 public class GetDataInstagram extends AsyncTask<Void,Void,ArrayList<ItemImagenInstagram>> {
     //Url instagram
-    String URL_INSTAGRAM = "https://api.instagram.com/v1/users/1794297171/media/recent/?client_id=93b3b8b1257944829c9e4670cbcc819d"; //Nueva
-    //String URL_INSTAGRAM = "https://api.instagram.com/v1/users/239397258/media/recent/?client_id=93b3b8b1257944829c9e4670cbcc819d"; //Anterior
+    String URL_INSTAGRAM = "https://api.instagram.com/v1/users/self/media/recent/?access_token=1794297171.cb6d621.8a909d1b183f4620be741d1438029939"; //Nueva
+    //String URL_INSTAGRAM = "https://api.instagram.com/v1/users/1794297171/media/recent/?client_id=93b3b8b1257944829c9e4670cbcc819d"; //Anterior
+    //String URL_INSTAGRAM = "https://api.instagram.com/v1/users/239397258/media/recent/?client_id=93b3b8b1257944829c9e4670cbcc819d"; //Anterior2
     Context contexto;
     public GetDataInstagram(Context contexto){
         this.contexto = contexto;

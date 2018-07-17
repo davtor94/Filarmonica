@@ -1,6 +1,7 @@
 package mx.com.filarmonica;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
@@ -377,6 +378,7 @@ public class Noticias extends ActionBarActivity
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                                  @Nullable Bundle savedInstanceState)
         {
+            Toast.makeText(getActivity(),"entro a face",Toast.LENGTH_SHORT).show();
             //Vista que contendrá el layout a retornar.
             View layout = null;
 
@@ -397,6 +399,7 @@ public class Noticias extends ActionBarActivity
             {
                 GetDataFacebook facebookThread = new GetDataFacebook(mRecyclerView, mSwipeRefreshLayout,
                         contexto, facebookArray);
+                Toast.makeText(getActivity(),"conecta con face",Toast.LENGTH_SHORT).show();
                 facebookThread.execute();
             }
 
@@ -423,6 +426,8 @@ public class Noticias extends ActionBarActivity
                     }
                 }
             });
+
+            Toast.makeText(getActivity(),"retorna layout",Toast.LENGTH_SHORT).show();
 
             return layout;
         }
@@ -495,4 +500,10 @@ public class Noticias extends ActionBarActivity
             return layout;
         }
     }//Fragment de Galería
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this,MainActivity.class);
+        startActivity(i);
+        super.onBackPressed();
+    }
 }//Noticias

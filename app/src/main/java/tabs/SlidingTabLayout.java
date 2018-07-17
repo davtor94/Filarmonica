@@ -401,8 +401,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
                                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                         //Sacamos el view donde irá la imagen de música.
-                        TextView viewTabStreaming = (TextView) mTabStrip.getChildAt(2);
-                        viewTabStreaming.setText(spannableStringStreaming);
+                       // TextView viewTabStreaming = (TextView) mTabStrip.getChildAt(2);
+                       // viewTabStreaming.setText(spannableStringStreaming);
 
                         break;
                     }
@@ -445,12 +445,12 @@ public class SlidingTabLayout extends HorizontalScrollView {
                                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                         //Sacamos el view donde irá la imagen de música.
-                        TextView viewTabStreaming = (TextView) mTabStrip.getChildAt(2);
-                        viewTabStreaming.setText(spannableStringStreaming);
+                       // TextView viewTabStreaming = (TextView) mTabStrip.getChildAt(2);
+                       // viewTabStreaming.setText(spannableStringStreaming);
 
                         break;
                     }
-
+/*
                     case 2:
                     {
                         Drawable imagenTabMusica = contexto.getResources().
@@ -494,6 +494,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
                         break;
                     }
+        */
                 }
             }
             else if(descripcion.equals("Noticias"))
@@ -692,8 +693,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
                                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                                 //Sacamos el view donde irá la imagen de música.
-                                TextView viewTabStreaming = (TextView) mTabStrip.getChildAt(2);
-                                viewTabStreaming.setText(spannableStringStreaming);
+                                //TextView viewTabStreaming = (TextView) mTabStrip.getChildAt(2);
+                                //viewTabStreaming.setText(spannableStringStreaming);
 
                                 break;
                             }
@@ -733,12 +734,12 @@ public class SlidingTabLayout extends HorizontalScrollView {
                                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                                 //Sacamos el view donde irá la imagen de música.
-                                TextView viewTabStreaming = (TextView) mTabStrip.getChildAt(2);
-                                viewTabStreaming.setText(spannableStringStreaming);
+                                //TextView viewTabStreaming = (TextView) mTabStrip.getChildAt(2);
+                                //viewTabStreaming.setText(spannableStringStreaming);
 
                                 break;
                             }
-
+/*
                             case 2:
                             {
                                 Drawable imagenTabMusica = contexto.getResources().
@@ -782,6 +783,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
                                 break;
                             }
+            */
                         }
                     }
                     return;

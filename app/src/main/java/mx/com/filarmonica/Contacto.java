@@ -123,4 +123,10 @@ public class Contacto extends Activity
         list_view_drawer.getLayoutParams().height = height;
         /******************************* ListView Drawer *****************************/
     }
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this,MainActivity.class);
+        startActivity(i);
+        super.onBackPressed();
+    }
 }

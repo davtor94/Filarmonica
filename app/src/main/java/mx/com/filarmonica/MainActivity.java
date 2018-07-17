@@ -49,6 +49,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 import conexion.ActualizarImagen;
 import conexion.ConexionInternet;
@@ -67,7 +68,7 @@ public class MainActivity extends Activity implements RespuestaAsyncTask
 
     //Constants.
     private static final int SLEEP_SECOND = 1000;
-    private static final int TIEMPO_ESPERA_BUSQUEDA_PROXIMO_CONCIERTO = (1000 * 60 * 60) * 2;
+    private static final int TIEMPO_ESPERA_BUSQUEDA_PROXIMO_CONCIERTO = (100 * 60 * 60) * 2;
 
     //Contexto.
     private static Context contexto;
@@ -253,6 +254,32 @@ public class MainActivity extends Activity implements RespuestaAsyncTask
                 json.execute("");
             }
         }
+
+        //re aparicion del tutorial
+        RelativeLayout fondo = (RelativeLayout) findViewById(R.id.content_frame);
+        fondo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(imageViewHand.getVisibility()==View.VISIBLE)
+                {
+                    imageViewFondoDrawerTutorial.setVisibility(View.GONE);
+                    animation.cancel();
+                    imageViewHand.clearAnimation();
+                    animation.reset();
+                    imageViewHand.setVisibility(View.GONE);
+                }
+                else{
+                    animation = new TranslateAnimation(0,500,0,0);
+                    animation.setDuration(4000);
+                    animation.setRepeatCount(Animation.INFINITE);
+                    animation.setFillAfter(true);
+                    imageViewHand.setVisibility(View.VISIBLE);
+                    imageViewFondoDrawerTutorial.setVisibility(View.VISIBLE);
+                    imageViewHand.startAnimation(animation);
+
+                }
+            }
+        });
     }//OnCreate
 
     //Respuesta a actualizar imagen.
@@ -405,10 +432,10 @@ public class MainActivity extends Activity implements RespuestaAsyncTask
                         }
                         else
                         {
-                            //Validar mensaje de que se está actualmente en concierto.
+                         //   Validar mensaje de que se está actualmente en concierto.
                             fecha.add("tocandoAhora");
                             Log.i(TAG, "Agregado: tocandoAhora");
-                            return fecha;
+                           return fecha;
                         }
                     }
                     else
@@ -539,6 +566,7 @@ public class MainActivity extends Activity implements RespuestaAsyncTask
         @Override
         protected void onPostExecute(ArrayList<String> result)
         {
+
             super.onPostExecute(result);
             if(result != null)
             {
@@ -667,7 +695,13 @@ public class MainActivity extends Activity implements RespuestaAsyncTask
     }
     private class RightMenuListener implements android.support.v4.widget.DrawerLayout.DrawerListener {
         @Override
-        public void onDrawerSlide(View view, float v) {
+        public void onDrawerSlide(View view, float v ) {
+            imageViewHand.clearAnimation();
+            imageViewHand.setVisibility(View.GONE);
+            imageViewFondoDrawerTutorial.setVisibility(View.GONE);
+            NotificationManager notificationManager = (NotificationManager) contexto
+                    .getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancel(012345);
 
         }
 
@@ -683,14 +717,25 @@ public class MainActivity extends Activity implements RespuestaAsyncTask
 
         @Override
         public void onDrawerClosed(View view) {
-
+            imageViewHand.clearAnimation();
+            imageViewHand.setVisibility(View.GONE);
+            imageViewFondoDrawerTutorial.setVisibility(View.GONE);
+            NotificationManager notificationManager = (NotificationManager) contexto
+                    .getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancel(012345);
         }
 
         @Override
         public void onDrawerStateChanged(int i) {
 
         }
+
     }
 
+    @Override
+    public void onBackPressed() {
 
+        super.onBackPressed();
+
+    }
 }

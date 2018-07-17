@@ -63,7 +63,7 @@ public class GetDataMp3 extends AsyncTask<Void,Void,ArrayList<ItemStreamingMusic
                 String titulo       = jsonArray.getJSONObject(x).getString("titulo");
                 String director     = jsonArray.getJSONObject(x).getString("Director");
                 String duracion     = jsonArray.getJSONObject(x).getString("Duracion");
-                String url          = URL + id;
+                String url          = URL + id+".mp3";
 
                 canciones.add(new ItemStreamingMusica(id,titulo,director,duracion,url));
             }

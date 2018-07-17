@@ -66,6 +66,7 @@ public class AdapterListaFacebook extends RecyclerView.Adapter<AdapterListaFaceb
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_item_facebook,
                 viewGroup, false);
         ViewHolder holder = new ViewHolder(v);
+
         return holder;
     }
 

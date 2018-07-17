@@ -102,7 +102,7 @@ public class Streaming extends ActionBarActivity
     private static Context contexto;
 
     //Número de tabs que contiene la actividad.
-    private static final int NUMERO_TABS = 3;
+    private static final int NUMERO_TABS = 2;
 
     //Pager que controla los eventos del ViewPager.
     private ViewPager mPager;
@@ -150,10 +150,10 @@ public class Streaming extends ActionBarActivity
             {
                     R.drawable.video_icon,
                     R.drawable.musica_icon_off,
-                    R.drawable.live_icon,
+                    //R.drawable.live_icon,
                     R.drawable.video_icon_off,
                     R.drawable.musica_icon,
-                    R.drawable.live_icon_on
+                    //R.drawable.live_icon_on
 
             };
 
@@ -278,8 +278,10 @@ public class Streaming extends ActionBarActivity
                 }
                 case 2:
                 {
+
                     MyStreamingFragment myStreamingFragment =
                             MyStreamingFragment.newInstance(position);
+                    Log.d("tab2","ejecucion");
                     return myStreamingFragment;
                 }
             }
@@ -318,6 +320,8 @@ public class Streaming extends ActionBarActivity
         {
             View layout = inflater.inflate(mx.com.filarmonica.R.layout.fragment_streaming, container, false);
 
+
+
             //Se obtiene el día actual
             SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
             Date d = new Date();
@@ -344,6 +348,7 @@ public class Streaming extends ActionBarActivity
                 SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
                 fechaProximoStreaming = sdf1.format(c.getTime());
             }
+
 
             //En caso de no ser el día que se reproduzca el streaming.
             if(dayOfTheWeek.equals(DIA_DE_STREAMING)&& validarHoraStreaming(formattedTime)){
@@ -435,6 +440,7 @@ public class Streaming extends ActionBarActivity
         static MyStreamingFragment newInstance(int position)
         {
             MyStreamingFragment streamingFragment = new MyStreamingFragment();
+
             Bundle args = new Bundle();
             args.putInt("position", position);
             streamingFragment.setArguments(args);
@@ -442,9 +448,10 @@ public class Streaming extends ActionBarActivity
 
 
         }
+
     }
 
-    //Clase que crea el fragmento del reproductor de música y de video.
+    //Clase que crea el fragmento del reproductor de música y de video.-->falla
     public static class MyMusicPlayerFragment extends Fragment
     {
         //Método que regresa un fragmento.
@@ -454,6 +461,7 @@ public class Streaming extends ActionBarActivity
             Bundle args = new Bundle();
             args.putInt("position", position);
             myMusicPlayerFragment.setArguments(args);
+
             return myMusicPlayerFragment;
         }
 
@@ -463,6 +471,7 @@ public class Streaming extends ActionBarActivity
         {
             //Vista que contendrá el layout que vamos a retornar.
             View layout = null;
+
 
             layout = inflater.inflate(mx.com.filarmonica.R.layout.fragment_reproductor_musica, container, false);
             //SeekBar barra = (SeekBar) layout.findViewById(mx.com.filarmonica.R.id.reproductor_barra_posicion);
@@ -528,6 +537,7 @@ public class Streaming extends ActionBarActivity
                     if(musicSrv.getReproduccion()){
                         musicSrv.pauseSong();
                         botonPlay.setImageResource(mx.com.filarmonica.R.drawable.reproductor_boton_play);
+
                     }
                     else{
 
@@ -535,6 +545,9 @@ public class Streaming extends ActionBarActivity
                         if(ConexionInternet.verificarConexion(contexto)){
                             musicSrv.setSong(0);
                             musicSrv.playSong();
+
+
+
                             botonPlay.setImageResource(mx.com.filarmonica.R.drawable.reproductor_boton_pause);
                         }
                         else{
@@ -549,8 +562,11 @@ public class Streaming extends ActionBarActivity
             botonNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     musicSrv.setItems(textViewTituloCancion,textViewDirector,textViewduracion);
+                    //Toast.makeText(contexto,"antes de nextsong ",Toast.LENGTH_SHORT).show();
                     musicSrv.nextSong();
+                    //Toast.makeText(contexto,"despues de nextsong ",Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -574,6 +590,7 @@ public class Streaming extends ActionBarActivity
                     mRecyclerViewStreaming.setAdapter(adapterStreaming);
                 }
             }
+
             //Retornamos la vista.
             return layout;
         }
@@ -582,15 +599,18 @@ public class Streaming extends ActionBarActivity
     public static class MyYoutubePlayerFragment extends Fragment
             implements YouTubePlayer.OnInitializedListener
     {
+
         //Método que regresa un fragmento.
         static MyYoutubePlayerFragment newInstance(int position)
         {
             MyYoutubePlayerFragment myYoutubePlayerFragment = new MyYoutubePlayerFragment();
+
             Bundle args = new Bundle();
             args.putInt("position", position);
             myYoutubePlayerFragment.setArguments(args);
             return myYoutubePlayerFragment;
         }
+
 
         @Override
         public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle)
@@ -679,6 +699,7 @@ public class Streaming extends ActionBarActivity
 
             //Retornamos el layout.
             return layout;
+            //aqui seria la segunda pantalla de streaming
         }
 
         @Override
@@ -699,7 +720,7 @@ public class Streaming extends ActionBarActivity
                                             YouTubeInitializationResult youTubeInitializationResult)
         {
             Toast.makeText(contexto,
-                    "Error " + youTubeInitializationResult.toString(),
+                    "Error en youtube " + youTubeInitializationResult.toString(),
                     Toast.LENGTH_LONG).show();
         }
 
@@ -708,13 +729,15 @@ public class Streaming extends ActionBarActivity
         {
             super.onConfigurationChanged(newConfig);
         }
-    }
+        }
     ////CONEXION DEL SERVICIO DE MUSICA CON EL ACTIVITY
     private static ServiceConnection musicConnection = new ServiceConnection(){
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
+
             ServicioMusica.MusicBinder binder = (ServicioMusica.MusicBinder)service;
+
             //get service
             musicSrv = binder.getService();
             //pass list
@@ -723,8 +746,11 @@ public class Streaming extends ActionBarActivity
             musicBound = true;
             //Cuando la conexión se realiza, se manda el objeto del servicio para que pueda ser utilizado por la lista de canciones
 
-            adapterStreaming = new AdapterListaStreaming(contexto,canciones,musicSrv,botonPlay);
+            adapterStreaming = new AdapterListaStreaming(contexto,canciones
+
+                    ,musicSrv,botonPlay);
             mRecyclerViewStreaming.setAdapter(adapterStreaming);
+
         }
 
         @Override
@@ -742,6 +768,9 @@ public class Streaming extends ActionBarActivity
             playIntent = new Intent(Streaming.this, ServicioMusica.class);
             bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
             startService(playIntent);
+
+
+
 
         }
         else{
@@ -765,6 +794,13 @@ public class Streaming extends ActionBarActivity
             //Si ocurre un error
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this,MainActivity.class);
+        startActivity(i);
+        super.onBackPressed();
     }
 
     static public int retornarDiasFaltantes(String dia ){

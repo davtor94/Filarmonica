@@ -2,6 +2,7 @@ package mx.com.filarmonica;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -61,5 +62,11 @@ public class Patronato extends Activity
         }
         list_view_drawer.getLayoutParams().height = height;
         /******************************* ListView Drawer *****************************/
+    }
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this,MainActivity.class);
+        startActivity(i);
+        super.onBackPressed();
     }
 }

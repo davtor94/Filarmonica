@@ -121,9 +121,9 @@ public class DetalleEvento extends ActionBarActivity {
         }
         else
         {
-            list_view_drawer.getLayoutParams().width  = width;
+            list_view_drawer.getLayoutParams().width  = width;//largo
         }
-        list_view_drawer.getLayoutParams().height = height;
+        list_view_drawer.getLayoutParams().height = height; //ancho
 
         /******************************* ListView Drawer *****************************/
 

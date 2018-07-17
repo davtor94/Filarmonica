@@ -270,8 +270,6 @@ public class AdapterImagenesInstagram extends RecyclerView.Adapter<AdapterImagen
         return string;
     }
 
-
-
 }
 
 

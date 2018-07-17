@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.format.Time;
 import android.util.Log;
+import 	android.widget.Toast;
 
 import org.jsoup.Jsoup;
 
@@ -486,7 +487,7 @@ public class ConexionBD extends SQLiteOpenHelper{
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(SQL_PROXIMO_EVENTO, null);
 
-        if(cursor.getCount() < 1)
+        if(cursor.getCount() < 1 )
         {
             fecha.add("sin conciertos");
             return fecha;
@@ -501,8 +502,10 @@ public class ConexionBD extends SQLiteOpenHelper{
             //Trigger para agregar el segundo concierto, si es que lo hubiese.
             if(cursor.getCount() > 1)
             {
+                cursor.moveToNext();
                 fecha2.add(cursor.getString(INDEX_COLUMNA_FECHA));
                 fecha2.add(cursor.getString(INDEX_COLUMNA_HORA) + ":" + cursor.getString(INDEX_COLUMNA_MINUTO));
+                cursor.moveToPrevious();
             }
 
             Time now = new Time();
@@ -522,14 +525,31 @@ public class ConexionBD extends SQLiteOpenHelper{
                     month = "0" + month;
                 }
 
-                if(fecha.get(0).compareTo(now.year + "-" + month + "-" + now.monthDay) >= 0)
+
+                Log.e("fecha 0", fecha.get(0));
+                Log.e("comparacion 0",  String.valueOf(fecha.get(0).compareTo(now.year + "-" + month + "-" + now.monthDay)));
+                String[] parts = fecha.get(0).split("-");
+                int diaProximoEvento = Integer.parseInt(parts[2]);
+                int diaActual = now.monthDay;
+                if(diaProximoEvento >= diaActual && Integer.parseInt(month) <=  Integer.parseInt(parts[1]))
                 {
+                    Log.e("fecha 1", fecha.get(0));
                     return fecha;
-                }
-                else
-                {
+                }else{
+                    Log.e("fecha 2", fecha2.get(0));
                     return fecha2;
                 }
+
+
+                //if(fecha.get(0).compareTo(now.year + "-" + month + "-" + now.monthDay) <= 0)
+                //{
+                   // return fecha;
+                //}
+                //else
+                //{
+
+                    //return fecha2;
+                //}
             }
         }
     }

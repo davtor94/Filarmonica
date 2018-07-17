@@ -1,6 +1,7 @@
 package mx.com.filarmonica;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -144,6 +146,7 @@ public class ListViewAdapter extends BaseAdapter
                 {
                     Intent i = new Intent(activity, ListaEventos.class);
                     activity.startActivity(i);
+
                 }
             });
 
@@ -164,8 +167,10 @@ public class ListViewAdapter extends BaseAdapter
                 {
                     Intent i = new Intent(activity, Streaming.class);
                     activity.startActivity(i);
+
                 }
             });
+
 
             view.imgContactoPatrocinadores.setOnTouchListener(new View.OnTouchListener()
             {
@@ -199,4 +204,5 @@ public class ListViewAdapter extends BaseAdapter
 
         return convertView;
     }
+
 }

@@ -12,6 +12,7 @@ import android.media.AudioManager;
 import android.os.Binder;
 import android.os.PowerManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by macmini3cuceimobile on 2/13/15.
@@ -92,6 +93,8 @@ public class ServicioMusica extends Service implements MediaPlayer.OnPreparedLis
     public void playSong(){
         textViewTituloCancion.setText(songs.get(songPosn).getTitulo());
         textViewDirector.setText(songs.get(songPosn).getDirector());
+        Toast.makeText(this,songs.get(songPosn).getUrl(),Toast.LENGTH_SHORT).show();
+        //songs.get(songPosn).getUrl()
         if(banderaPause && banderaCambioPosicion == false){
             player.start();
         }
